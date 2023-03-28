@@ -59,7 +59,7 @@ export async function updatePr({ merge = false }: { merge?: boolean }) {
   }>({
     type: 'multiselect',
     name: 'prNumbers',
-    message: 'Pick your favorite colors',
+    message: 'Choose PRs to update',
     initial: initial as any,
     choices: prs.map((pr) => {
       const { existing } = analyzePrInfo(pr)
