@@ -4,10 +4,11 @@
 
 A GitHub CLI for PRs, issues, and reproduction.
 
-## Install
+## Usage
 
 ```bash
-npm i repo-master
+cd <your-repo>
+npx repo-master pr-update
 ```
 
 ## Sponsors
