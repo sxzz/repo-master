@@ -13,6 +13,7 @@
     "url": "git+https://github.com/sxzz/repo-master.git"
   },
   "files": [
+    "bin",
     "dist"
   ],
   "main": "./dist/index.js",
@@ -25,6 +26,9 @@
       "import": "./dist/index.mjs"
     },
     "./*": "./*"
+  },
+  "bin": {
+    "repo-master": "bin/repo-master.mjs"
   },
   "publishConfig": {
     "access": "public"
