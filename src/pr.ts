@@ -3,6 +3,7 @@ import type { Octokit } from 'octokit'
 export interface PR {
   title: string
   number: number
+  url: string
   mergeable: 'MERGEABLE' | 'CONFLICTING' | 'UNKNOWN'
   createdAt: string
   headRef: {
@@ -44,6 +45,7 @@ export async function searchPrs(octokit: Octokit, q: string) {
         ... on PullRequest {
           number
           title
+          url
           mergeable
           createdAt
           headRef {

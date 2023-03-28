@@ -32,6 +32,15 @@ export async function updatePr({ merge = false }: { merge?: boolean }) {
     return
   }
 
+  consola.warn(
+    `${chalk.yellow('Conflicting PRs:')}\n${prs
+      .filter((pr) => pr.mergeable === 'CONFLICTING')
+      .map(
+        (pr) => `#${pr.number} - ${pr.title} - ${pr.headRef.name} - ${pr.url}`
+      )
+      .join('\n')}`
+  )
+
   const initial = prs
     .filter((pr) => {
       const { existing, latest } = analyzePrInfo(pr)
