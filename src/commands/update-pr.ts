@@ -44,8 +44,8 @@ export async function updatePr({ merge = false }: { merge?: boolean }) {
 
   const initial = prs
     .filter((pr) => {
-      const { existing, latest } = analyzePrInfo(pr)
-      return pr.mergeable !== 'CONFLICTING' && existing && !latest
+      const { existing } = analyzePrInfo(pr)
+      return pr.mergeable !== 'CONFLICTING' && existing
     })
     .map((pr) => String(pr.number))
 
@@ -62,17 +62,15 @@ export async function updatePr({ merge = false }: { merge?: boolean }) {
     message: 'Pick your favorite colors',
     initial: initial as any,
     choices: prs.map((pr) => {
-      const { existing, latest } = analyzePrInfo(pr)
+      const { existing } = analyzePrInfo(pr)
 
       return {
         name: String(pr.number),
         message: `${mergeStatus[pr.mergeable]} ${pr.title}`,
-        hint: latest
-          ? chalk.green('(LATEST)')
-          : existing
+        hint: existing
           ? chalk.bold.underline(`(${pr.headRef.name})`)
           : chalk.yellow(`(${pr.headRef.name} doesn't exist)`),
-        disabled: pr.mergeable === 'CONFLICTING' || !existing || latest,
+        disabled: pr.mergeable === 'CONFLICTING' || !existing,
       }
     }),
   })
@@ -94,10 +92,6 @@ export async function updatePr({ merge = false }: { merge?: boolean }) {
 
   function analyzePrInfo(pr: PR) {
     const existing = branches.all.includes(pr.headRef.name)
-    const localCommit = branches.branches[pr.headRef.name]?.commit
-    const latest =
-      localCommit === pr.headRef.target.oid ||
-      pr.headRef.target.oid.startsWith(localCommit)
-    return { latest, existing }
+    return { existing }
   }
 }
