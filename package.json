@@ -1,6 +1,6 @@
 {
   "name": "repo-master",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packageManager": "pnpm@7.29.3",
   "description": "A GitHub CLI for PRs, issues, and reproduction.",
   "license": "MIT",
